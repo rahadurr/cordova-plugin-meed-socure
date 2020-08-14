@@ -1,0 +1,27 @@
+{
+  "name": "cordova-plugin-meed-socure",
+  "version": "0.0.1",
+  "description": "This is the Native Cordova plugin for Socure Document Scan",
+  "cordova": {
+    "id": "cordova-plugin-meed-socure",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rahadurr/cordova-plugin-meed-socure.git"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "author": "Rahadur Rahman <rahadur.rahman@brainstation23.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rahadurr/cordova-plugin-meed-socure/issues"
+  },
+  "homepage": "https://github.com/rahadurr/cordova-plugin-meed-socure#readme"
+}

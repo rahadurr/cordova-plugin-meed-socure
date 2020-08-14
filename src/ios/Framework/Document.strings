@@ -1,0 +1,77 @@
+/*
+ Documents.strings
+ SocureSDK
+ 
+ Created by Nicolas Dedual
+ Copyright © 2020 Socure. All rights reserved.
+ */
+
+/*
+Configuration for cancel scan alert
+*/
+
+"alert_cancel_message" = "Are you sure you want to exit?";
+"alert_cancel_title" = "Cancel Capture";
+"alert_cancel_positive_text" = "Yes, I'm sure";
+"alert_cancel_negative_text" = "No, go back.";
+
+/*
+Configuration for camera permissions alert
+*/
+
+"alert_camera_permission_access_denied_title" = "Permission Error";
+"alert_camera_permission_allow_message" = "This application requires access to the camera to fuction. Please grant camera permission for the application";
+"alert_camera_permission_deny_button" = "Deny";
+"alert_camera_permission_gotosettings_button" = "Settings";
+"alert_camera_permission_no_camera_access_message" = "";
+"alert_camera_permission_ok_button" = "OK";
+"alert_camera_access_denied_cancel_title" = "Permission Denied";
+"alert_camera_access_denied_cancel_message" = "This application requires access to the camera to fuction. Please grant camera permission for the application";
+"alert_camera_access_denied_cancel_ok" = "OK";
+
+/*
+Configuration for overlays
+*/
+
+"scan_document_view_title" = "Scan Document";
+"scan_selfie_view_title" = "Face Recognition";
+"scan_document_front_text" = "FRONT";
+"scan_document_back_text" = "BACK";
+
+/*
+Configuration for selfie text
+*/
+
+"selfie_near_text" = "NEAR";
+"selfie_far_text" = "FAR";
+
+/*
+Configuration for help information
+*/
+"scan_document_front_help_title" = "Document Front";
+"scan_document_back_help_title" = "Document Back";
+"scan_selfie_help_title" = "Capture Close Up Selfie";
+
+"scan_document_front_help_text" = "Place your document within the frame as it is shown in the image above. The capturing happens automatically.\n\nEnsure that all data is readable and avoid reflection.";
+"scan_document_back_help_text" = "Place the barcode in front of the camera as it is shown in the image above. The capturing happens automatically.";
+"scan_selfie_help_text" = "Hold your device on eye level and look straight \ninto the camera. Your face will be\n captured automatically.";
+"scan_document_back_nobarcodeButton_text" = "No Barcode on my ID";
+
+/*
+Configuration for confirmation screen text
+*/
+
+"scan_document_confirmation_text" =  "Is the data on your\nID fully visible, glare free\nand not blurred?";
+"scan_document_accepted_text" = "Information\nExtracted!";
+"scan_selfie_confirmation_text" =  "Is the selfie \nID fully visible, glare free\nand not blurred?";
+"scan_selfie_accepted_text" = "Face\nExtracted!";
+
+/*
+Configuration for overlays
+*/
+
+"scan_state_standby_text" = "On stand-by";
+"scan_state_scanning_text" = "Searching Document...";
+"scan_state_processing_text" = "Keep steady";
+"scan_state_captured_text" = "Extracting information";
+"scan_state_selfie_captured_text" = "Selfie captured";
