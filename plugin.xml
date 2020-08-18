@@ -1,79 +1,92 @@
-<?xml version='1.0' encoding='utf-8'?>
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-    xmlns:android="http://schemas.android.com/apk/res/android" id="cordova-plugin-meed-socure" version="0.0.1">
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="cordova-plugin-meed-socure" version="0.0.1">
     <name>Socure</name>
     <js-module name="Socure" src="www/Socure.js">
-        <clobbers target="meed.plugins.Socure" />
-        <clobbers target="cordova.plugins.Socure" />
+        <clobbers target="meed.plugins.Socure"/>
+        <clobbers target="cordova.plugins.Socure"/>
     </js-module>
     <engines>
-        <engine name="cordova" version=">=8.0.0" />
-        <engine name="cordova-android" version=">=8.0.0" />
-        <engine name="cordova-ios" version=">=5.0.0" />
+        <engine name="cordova" version=">=8.0.0"/>
+        <engine name="cordova-android" version=">=8.0.0"/>
+        <engine name="cordova-ios" version=">=5.0.0"/>
     </engines>
+    <preference name="SOCURE_SDK_KEY" default="fb553527-1c71-48fd-bb41-b345c03b85e7"/>
     <platform name="android">
         <config-file parent="/*" target="res/xml/config.xml">
             <feature name="Socure">
-                <param name="android-package" value="com.meedbankingclub.cordova.socure.Socure" />
+                <param name="android-package" value="com.meedbankingclub.cordova.socure.Socure"/>
             </feature>
         </config-file>
         <config-file parent="/*" target="AndroidManifest.xml">
-            <uses-permission android:name="android.permission.CAMERA"></uses-permission>
-            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
-            <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+            <uses-permission android:name="android.permission.CAMERA"/>
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
         </config-file>
-        <source-file src="src/android/Socure.java" target-dir="src/com/meedbankingclub/cordova/socure" />
-        <source-file src="src/android/SocureHelper.java" target-dir="src/com/meedbankingclub/cordova/socure" />
-
-        <lib-file src="src/android/libs/SocureSDKRelease-2.0.1.aar" />
-
-        <framework src="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.72" />
-        <framework src="androidx.appcompat:appcompat:1.2.0" />
-        <framework src="androidx.recyclerview:recyclerview:1.1.0" />
-        <framework src="androidx.constraintlayout:constraintlayout:1.1.3" />
-        <framework src="com.google.android.material:material:1.1.0" />
-        <framework src="androidx.legacy:legacy-support-v4:1.0.0" />
-        <framework src="com.squareup.retrofit2:retrofit:2.6.2" />
-        <framework src="com.squareup.retrofit2:converter-gson:2.6.2" />
-        <framework src="com.otaliastudios:cameraview:2.6.3" />
-        <framework src="com.github.ybq:Android-SpinKit:1.4.0" />
-        <framework src="com.squareup.okhttp3:logging-interceptor:4.2.2" />
-        <framework src="com.google.android.gms:play-services-mlkit-barcode-scanning:16.1.1" />
-        <framework src="com.google.android.gms:play-services-mlkit-face-detection:16.1.0" />
-        <framework src="com.google.android.gms:play-services-mlkit-text-recognition:16.1.0" />
-        <framework src="org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2" />
-        <framework src="org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.2" />
-        <framework src="org.jetbrains.kotlinx:kotlinx-coroutines-rx2:1.3.2" />
-        <framework src="com.karumi:dexter:6.0.2" />
-
-        <framework src="src/android/build-extras.gradle" custom="true" type="gradleReference" />
-
-        <dependency id="cordova-plugin-androidx" version="2.0.0" />
-        <dependency id="cordova-plugin-androidx-adapter" version="1.1.1" />
-
+        <config-file target="app/src/main/res/values/strings.xml" parent="/*">
+            <string name="socurePublicKey">$SOCURE_SDK_KEY</string>
+        </config-file>
+        <source-file src="src/android/Socure.java" target-dir="src/com/meedbankingclub/cordova/socure"/>
+        <source-file src="src/android/SocureHelper.java" target-dir="src/com/meedbankingclub/cordova/socure"/>
+        <lib-file src="sdk/android/SocureSDKRelease-2.0.1.aar"/>
+        <framework src="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.72"/>
+        <framework src="androidx.appcompat:appcompat:1.2.0"/>
+        <framework src="androidx.recyclerview:recyclerview:1.1.0"/>
+        <framework src="androidx.constraintlayout:constraintlayout:1.1.3"/>
+        <framework src="com.google.android.material:material:1.1.0"/>
+        <framework src="androidx.legacy:legacy-support-v4:1.0.0"/>
+        <framework src="com.squareup.retrofit2:retrofit:2.6.2"/>
+        <framework src="com.squareup.retrofit2:converter-gson:2.6.2"/>
+        <framework src="com.otaliastudios:cameraview:2.6.3"/>
+        <framework src="com.github.ybq:Android-SpinKit:1.4.0"/>
+        <framework src="com.squareup.okhttp3:logging-interceptor:4.2.2"/>
+        <framework src="com.google.android.gms:play-services-mlkit-barcode-scanning:16.1.1"/>
+        <framework src="com.google.android.gms:play-services-mlkit-face-detection:16.1.0"/>
+        <framework src="com.google.android.gms:play-services-mlkit-text-recognition:16.1.0"/>
+        <framework src="org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2"/>
+        <framework src="org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.2"/>
+        <framework src="org.jetbrains.kotlinx:kotlinx-coroutines-rx2:1.3.2"/>
+        <framework src="com.karumi:dexter:6.0.2"/>
+        <framework src="src/android/build-extras.gradle" custom="true" type="gradleReference"/>
+        <dependency id="cordova-plugin-androidx" version="2.0.0"/>
+        <dependency id="cordova-plugin-androidx-adapter" version="1.1.1"/>
     </platform>
     <platform name="ios">
         <config-file parent="/*" target="config.xml">
             <feature name="Socure">
-                <param name="ios-package" value="Socure" />
+                <param name="ios-package" value="Socure"/>
             </feature>
         </config-file>
-        <source-file src="src/ios/Socure.m" />
-
-        <lib-file src="src/ios/Framework/SocureSdk.xcframework" arch="x86" framework="true" />
-        <lib-file src="src/ios/Framework/SocureSdk.xcframework" arch="arm" framework="true" />
-        <framework src="src/ios/Framework/SocureSdk.xcframework" embed="true" custom="true" />
-
+        <config-file target="*-Info.plist" parent="socurePublicKey">
+            <string>$SOCURE_SDK_KEY</string>
+        </config-file>
+        <config-file target="*-Info.plist" parent="NSCameraUsageDescription">
+            <string>$(PRODUCT_NAME) use camera for document scane</string>
+        </config-file>
+        <config-file target="*-Info.plist" parent="Privacy - Camera Usage Description">
+            <string>$(PRODUCT_NAME) use camera for document scane</string>
+        </config-file>
+        <config-file target="*-Info.plist" parent="Privacy - Location Always Usage Description ">
+            <string>$(PRODUCT_NAME) location use</string>
+        </config-file>
+        <config-file target="*-Info.plist" parent="Privacy - Location When In Use Usage Description">
+            <string>$(PRODUCT_NAME) location use</string>
+        </config-file>
+        <source-file src="src/ios/Socure.swift"/>
+        <source-file src="src/ios/SocureViewController.swift"/>
+        <lib-file src="sdk/ios/SocureSdk.xcframework" arch="x86" framework="true"/>
+        <lib-file src="sdk/ios/SocureSdk.xcframework" arch="arm" framework="true"/>
+        <framework src="sdk/ios/SocureSdk.xcframework" embed="true" custom="true"/>
+        <dependency id="cordova-plugin-add-swift-support" version="2.0.2"/>
         <podspec>
             <config>
                 <source url="https://github.com/CocoaPods/Specs.git"/>
             </config>
             <pods use-frameworks="true">
-                <pod name="TrustKit" spec="~> 1.6" />
+                <pod name="TrustKit" spec="~> 1.6"/>
             </pods>
         </podspec>
-
     </platform>
-    
+    <!-- <hook type="after_prepare" src="scripts/after_prepare.js" /> -->
+    <hook type="before_prepare" src="scripts/before_prepare.js"/>
 </plugin>
