@@ -87,6 +87,4 @@
             </pods>
         </podspec>
     </platform>
-    <!-- <hook type="after_prepare" src="scripts/after_prepare.js" /> -->
-    <hook type="before_prepare" src="scripts/before_prepare.js"/>
 </plugin>
