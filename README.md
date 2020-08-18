@@ -4,7 +4,7 @@ This is the Native **Socure** Document Scan **iOS**, & **Android** Cordova Plugi
 
 ## Supported Platform:
 
-- \[ ] iOS.
+- \[X] iOS.
 - \[X] Android.
 
 ## Changelog:
@@ -14,16 +14,51 @@ This is the Native **Socure** Document Scan **iOS**, & **Android** Cordova Plugi
 ## Installation:
 
 ```console
-ionic cordova plugin add cordova-plugin-meed-socure
+ionic cordova plugin add cordova-plugin-meed-socure --variable SOCURE_SDK_KEY="sd654s6d54f-*-*"
 
 npm install @meed-native/socure
+```
+
+## Plugin Variable
+`config.xml`
+```xml
+<plugin name="cordova-plugin-meed-socure" spec="latest">
+
+  <variable name="SOCURE_SDK_KEY" value="sd654s6d54f-*-*" />
+
+</plugin>
+```
+Or
+`package.json`
+```json
+"cordova": {
+    "plugins": {
+      ...
+      
+      "cordova-plugin-meed-socure": {
+        "SOCURE_SDK_KEY": "sd654s6d54f-*-*",
+      }
+    }
+}
 ```
 
 ## Permission Required:
 
 ```xml
+<!--  iOS -->
+<key>NSCameraUsageDescription</key>
+<string>My Description</string>
 
-// Android
+<key>Privacy - Camera Usage Description</key>
+<string>My Description</string>
+
+<key>Privacy - Location Always Usage Description</key>
+<string>My Description</string>
+
+<key>Privacy - Location When In Use Usage Description</key>
+<string>My Description</string>
+
+<!-- Android -->
 <uses-permission android:name="android.permission.CAMERA"></uses-permission>
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
 <uses-permission android:name="android.permission.INTERNET"></uses-permission>
@@ -137,7 +172,7 @@ export class HomePage {
   scanPassport() {
 
     this.socure.scanPassport()
-    .then((result: LicenseScanResult) => {
+    .then((result: PassportScanResult) => {
       console.log(result);
     })
     .catch((error: any) => {
