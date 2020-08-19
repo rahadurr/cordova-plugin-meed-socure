@@ -1,6 +1,9 @@
 /********* Socure.swift Cordova Plugin Implementation *******/
 
+import AVFoundation
+import CoreLocation
 import SocureSdk
+
 
 /*
 * Notes: The @objc shows that this class & function should be exposed to Cordova.
@@ -8,16 +11,37 @@ import SocureSdk
 
 @objc(Socure) class Socure : CDVPlugin, SocureScanResult {
     
+  var locationManager: CLLocationManager?
+    
   var invokedUrlcommand: CDVInvokedUrlCommand?
+    
+    @objc override func  pluginInitialize() {
+        locationManager = CLLocationManager()
+    }
     
 
   @objc(checkPermissions:) // Declare your function name.
-  func checkPermissions(command: CDVInvokedUrlCommand) { // write the function code.
-    // Set the plugin result to fail.
-    // var pluginResult = CDVPluginResult (status: CDVCommandStatus_ERROR, messageAs: "The Plugin Failed");
-    // Set the plugin result to succeed.
-     let   pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: 100);
-    // Send the function result back to Cordova.
+  func checkPermissions(command: CDVInvokedUrlCommand) {
+    
+    let permissions: [String] = command.arguments[0] as! [String];
+    
+    var PERMISSION_STATUS = 0;
+    
+    for permission in permissions {
+        switch permission {
+        case "camera":
+            // Camera Permission
+            PERMISSION_STATUS =  self.checkCameraPermissionStatus()
+            break;
+        case "location":
+            PERMISSION_STATUS =  self.checkLocationPermissionStatus()
+            break;
+            
+        default: break
+        }
+    }
+    
+    let   pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: PERMISSION_STATUS);
     self.commandDelegate!.send(pluginResult, callbackId: command.callbackId);
   }
     
@@ -64,8 +88,65 @@ import SocureSdk
       self.commandDelegate!.send(pluginResult, callbackId: command.callbackId);
     }
   }
+    
+    
+    
+  /********* Permissions Check Private Method *******/
+    
+    func checkCameraPermissionStatus() -> Int {
+        var status = 0;
+        let cameraPermissionStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
+        
+        if cameraPermissionStatus == .authorized {
+            status = 100
+        } else if (cameraPermissionStatus == .restricted) {
+             status = 200
+        } else if (cameraPermissionStatus == .denied) {
+            status = 300
+        } else if (cameraPermissionStatus == .notDetermined) {
+            AVCaptureDevice.requestAccess(for: .video) { success in
+                if success {
+                    status = 100
+                } else {
+                    status = 300
+                }
+            }
+        }
+        
+        return status
+    }
+    
+    func checkLocationPermissionStatus() -> Int {
+        var status = 0;
+        let locationPermissionStatus = CLLocationManager.authorizationStatus()
+        
+        switch locationPermissionStatus {
+        case CLAuthorizationStatus.authorizedAlways:
+            status = 100
+            break;
+        case CLAuthorizationStatus.authorizedWhenInUse:
+            status = 100
+            break;
+        case CLAuthorizationStatus.denied:
+            status = 300
+            break;
+        case CLAuthorizationStatus.restricted:
+            status = 200
+            break;
+        case CLAuthorizationStatus.notDetermined:
+            locationManager?.requestWhenInUseAuthorization()
+            break;
+        default: break
+            
+        }
+        
+        return status
+    }
+    
 
-    /********* SocureScanResult  Delegate Protocol  Methods Implementation *******/
+    
+    
+  /********* SocureScanResult  Delegate Protocol  Methods Implementation *******/
     
   @objc public func licanseScanResult(licenseScanResult: Dictionary<String, Any>) {
     let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: licenseScanResult);
