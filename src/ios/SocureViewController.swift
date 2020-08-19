@@ -25,7 +25,7 @@ extension SocureViewController: ImageCallback, MRZCallback, BarcodeCallback {
             "documentNumber": mrzData?.documentNumber ?? "",
             "expirationDate": mrzData?.expirationDate ?? "",
             "validDocumentNumber": mrzData?.validDocumentNumber ?? false,
-            "validDateOfBirth": mrzData?.validDateOfBirth ?? false,
+            "validDateOfBirth": mrzData?.validDateOfBirth ?? false, 
             "validExpirationDate": mrzData?.validExpirationDate ?? false,
             "validComposite": mrzData?.validComposite ?? false
             ] as [String : Any]
@@ -56,9 +56,13 @@ extension SocureViewController: ImageCallback, MRZCallback, BarcodeCallback {
         switch socureScaneMode {
         case .License:
             self.licenseScanResult["licenseFrontImage"] = docScanResult.imageData?.base64EncodedString()
+            if (self.licenseScanResult["licenseBackImage"] != nil) {
+                self.dismiss(animated: true, completion: nil)
+            }
             break
         case .Passport:
             self.passportScanResult["passportImage"] = docScanResult.imageData?.base64EncodedString()
+            self.dismiss(animated: true, completion: nil)
             break
         case .Selfie: break     // Required for ignore "Switch must be exhaustive" error.
         }
@@ -68,7 +72,9 @@ extension SocureViewController: ImageCallback, MRZCallback, BarcodeCallback {
     func documentBackCallBack(docScanResult: DocScanResult) {
         print("documentBackCallBack")
         self.licenseScanResult["licenseBackImage"] = docScanResult.imageData?.base64EncodedString()
-        self.dismiss(animated: true, completion: nil)
+        if (self.licenseScanResult["licenseFrontImage"] != nil) {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     
@@ -111,6 +117,7 @@ extension SocureViewController: ImageCallback, MRZCallback, BarcodeCallback {
             ] as [String: String]
             
             self.licenseScanResult = ["licenseFrontImage": "", "licenseBackImage": "", "barcodeData": barcodeData]
+            
             break
         case .Passport:
             let mrzData = [
@@ -131,6 +138,7 @@ extension SocureViewController: ImageCallback, MRZCallback, BarcodeCallback {
             ] as [String: Any]
             
             self.passportScanResult = ["passportImage": "", "mrzData": mrzData]
+            
             break
         case .Selfie:
             self.selfieScanResult = ["selfieImage": ""]

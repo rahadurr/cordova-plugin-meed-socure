@@ -34,7 +34,6 @@ Or
 "cordova": {
     "plugins": {
       ...
-      
       "cordova-plugin-meed-socure": {
         "SOCURE_SDK_KEY": "sd654s6d54f-*-*",
       }
@@ -47,22 +46,27 @@ Or
 ```xml
 <!--  iOS -->
 <key>NSCameraUsageDescription</key>
-<string>My Description</string>
+<string>Meed requires use your camera in order to capture your sensitive documents for processing</string>
 
 <key>Privacy - Camera Usage Description</key>
-<string>My Description</string>
+<string>Meed requires use your camera in order to capture your sensitive documents for processing</string>
 
 <key>Privacy - Location Always Usage Description</key>
-<string>My Description</string>
+<string>Meed requires use your location in order to identify locales for processing documents</
 
 <key>Privacy - Location When In Use Usage Description</key>
-<string>My Description</string>
+<string>Meed requires use your location in order to identify locales for processing documents</
+
+<key>Privacy - Location Always and When In Use Usage Description</key>
+<string>Meed requires use your location in order to identify locales for processing documents</string>
+
+
 
 <!-- Android -->
-<uses-permission android:name="android.permission.CAMERA"></uses-permission>
-<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
-<uses-permission android:name="android.permission.INTERNET"></uses-permission>
-<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+<uses-permission android:name="android.permission.CAMERA" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 ```
 
 ## Getting Start:
@@ -250,9 +254,9 @@ export class HomePage {
 }
 ```
 
-## API
+# API
 
-### Enums
+## Enums
 
 ```typescript
 enum Permissions {
@@ -269,18 +273,56 @@ enum PermissionStatus {
 }
 ```
 
-### Interfaces:
+## Interfaces:
 
 ```typescript
 interface LicenseScanResult {
   licenseFrontImage: string;
   licenseBackImage: string;
+  barcodeData: BarcodeData
+}
+```
+
+```typescript
+interface BarcodeData {
+  firstName: string;
+  lastName?: string;       // iOS only
+  middleName?: string;     // iOS only
+  fullName: string;
+  dob: string;
+  address: string;
+  city: string;
+  state: string;
+  postalCode: string;
+  documentNumber: string;
+  issueDate: string;
+  expirationDate: string;
 }
 ```
 
 ```typescript
 interface PassportScanResult {
   passportImage: string;
+  mrzData: MRZData
+}
+```
+
+```typescript
+interface MRZData {
+  code?: string;            // iOS only
+  format?: string;          // iOS only
+  surName: string;
+  firstName: string;
+  issuingCountry: string;
+  nationality: string;
+  sex?: string;             // iOS only
+  dob: string;
+  documentNumber: string;
+  expirationDate: string;
+  validDocumentNumber?: boolean;    // iOS only
+  validDateOfBirth?: boolean;       // iOS only
+  validExpirationDate?: boolean;    // iOS only
+  validComposite?: boolean;         // iOS only
 }
 ```
 
@@ -290,11 +332,11 @@ interface SelfieScanResult {
 }
 ```
 
-### Actions:
+## Actions:
 
 ```typescript
 
-checkPermissions(permissions: string[]): Promise<PermissionStatus>;
+checkPermissions(permissions: Permissions[]): Promise<PermissionStatus>;
 
 scanLicense(): Promise<LicenseScanResult>;
 

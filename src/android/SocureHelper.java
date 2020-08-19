@@ -10,11 +10,15 @@ import android.util.Base64;
 
 import androidx.annotation.RequiresApi;
 
+import com.socure.idplus.model.BarcodeData;
+import com.socure.idplus.model.MrzData;
+
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.PermissionHelper;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 public class SocureHelper {
     private static SharedPreferences.Editor editor;
@@ -66,6 +70,66 @@ public class SocureHelper {
                 permissionListener.onPermissionDeniedAlways();
             }
         }
+    }
+
+    public static JSONObject mapMRZData(MrzData mrzData) throws JSONException {
+        JSONObject json = new JSONObject();
+        if (mrzData != null) {
+            json.put("code", "");
+            json.put("format", "");
+            json.put("surName", mrzData.getSurName());
+            json.put("firstName", mrzData.getFirstName());
+            json.put("issuingCountry", mrzData.getIssuingCountry());
+            json.put("nationality", mrzData.getNationality());
+            json.put("sex", "");
+            json.put("dob", mrzData.getDob());
+            json.put("documentNumber", mrzData.getDocumentNumber());
+            json.put("expirationDate", mrzData.getExpirationDate());
+        } else  {
+            json.put("code", "");
+            json.put("format", "");
+            json.put("surName", "");
+            json.put("firstName", "");
+            json.put("issuingCountry", "");
+            json.put("nationality", "");
+            json.put("sex", "");
+            json.put("dob", "");
+            json.put("documentNumber", "");
+            json.put("expirationDate", "");
+        }
+        return json;
+    }
+
+    public static JSONObject mapBarcodeData(BarcodeData barcodeData) throws JSONException {
+        JSONObject json = new JSONObject();
+        if (barcodeData != null) {
+            json.put("firstName", barcodeData.getFirstName());
+            json.put("lastName", "");
+            json.put("middleName", "");
+            json.put("fullName", barcodeData.getFullName());
+            json.put("dob", barcodeData.getDOB());
+            json.put("address", barcodeData.getAddress());
+            json.put("city", barcodeData.getCity());
+            json.put("state", barcodeData.getState());
+            json.put("postalCode", barcodeData.getPostalCode());
+            json.put("documentNumber", barcodeData.getDocumentNumber());
+            json.put("issueDate", barcodeData.getIssueDate());
+            json.put("expirationDate", barcodeData.getExpirationDate());
+        } else  {
+            json.put("firstName", "");
+            json.put("lastName", "");
+            json.put("middleName", "");
+            json.put("fullName", "");
+            json.put("dob", "");
+            json.put("address", "");
+            json.put("city", "");
+            json.put("state", "");
+            json.put("postalCode", "");
+            json.put("documentNumber", "");
+            json.put("issueDate", "");
+            json.put("expirationDate", "");
+        }
+        return json;
     }
 
     public static Bitmap byteToBitmap(byte[] bytes) {

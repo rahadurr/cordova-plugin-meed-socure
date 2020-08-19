@@ -11,6 +11,8 @@ import android.provider.Settings;
 import androidx.annotation.RequiresApi;
 
 import com.socure.idplus.SDKAppDataPublic;
+import com.socure.idplus.model.BarcodeData;
+import com.socure.idplus.model.MrzData;
 import com.socure.idplus.model.ScanResult;
 import com.socure.idplus.model.SelfieScanResult;
 import com.socure.idplus.scanner.selfie.SelfieActivity;
@@ -140,27 +142,44 @@ public class Socure extends CordovaPlugin {
                     if (resultCode == Activity.RESULT_OK) {
 
                         ScanResult result = SDKAppDataPublic.INSTANCE.getSuccessfulScanningResult();
+                        BarcodeData barcodeData = SDKAppDataPublic.INSTANCE.getSuccessfulScanningResult().getBarcodeData();
+
                         this.callbackContext.success(
-                                new JSONObject().put("licenseFrontImage", SocureHelper.base64ImageData(result.getLicenseFrontImage()))
-                                        .put("licenseBackImage", SocureHelper.base64ImageData(result.getLicenseBackImage())));
+                                new JSONObject()
+                                        .put("licenseFrontImage", SocureHelper.base64ImageData(result.getLicenseFrontImage()))
+                                        .put("licenseBackImage", SocureHelper.base64ImageData(result.getLicenseBackImage()))
+                                .put("barcodeData", SocureHelper.mapBarcodeData(barcodeData))
+                        );
                     } else {
                         this.callbackContext.success(
                                 new JSONObject().put("licenseFrontImage", "")
-                                        .put("licenseBackImage", ""));
+                                        .put("licenseBackImage", "")
+                                .put("barcodeData", SocureHelper.mapBarcodeData(null))
+                        );
                     }
                     break;
                 case REQUEST_CAPTURE_PASSPORT:
                     if (resultCode == Activity.RESULT_OK) {
 
                         ScanResult result = SDKAppDataPublic.INSTANCE.getSuccessfulScanningResult();
+                        MrzData mrzData = SDKAppDataPublic.INSTANCE.getSuccessfulScanningResult().getMrzData();
+
                         byte[] passportImage = result.getPassportImage();
+
                         this.callbackContext.success(
-                                new JSONObject().put("passportImage", SocureHelper.base64ImageData(passportImage)));
+                                new JSONObject()
+                                        .put("passportImage", SocureHelper.base64ImageData(passportImage))
+                                        .put("mrzData", SocureHelper.mapMRZData(mrzData))
+                        );
+
 
 
                     } else {
                         this.callbackContext.success(
-                                new JSONObject().put("passportImage", ""));
+                                new JSONObject()
+                                        .put("passportImage", "")
+                                        .put("mrzData", SocureHelper.mapMRZData(null))
+                        );
                     }
                     break;
                 case REQUEST_CAPTURE_SELFIE:

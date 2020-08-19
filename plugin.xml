@@ -61,16 +61,19 @@
             <string>$SOCURE_SDK_KEY</string>
         </config-file>
         <config-file target="*-Info.plist" parent="NSCameraUsageDescription">
-            <string>$(PRODUCT_NAME) use camera for document scane</string>
+            <string>$(PRODUCT_NAME) requires use your camera in order to capture your sensitive documents for processing</string>
         </config-file>
         <config-file target="*-Info.plist" parent="Privacy - Camera Usage Description">
-            <string>$(PRODUCT_NAME) use camera for document scane</string>
+            <string>$(PRODUCT_NAME) requires use your camera in order to capture your sensitive documents for processing</string>
         </config-file>
         <config-file target="*-Info.plist" parent="Privacy - Location Always Usage Description ">
-            <string>$(PRODUCT_NAME) location use</string>
+            <string>$(PRODUCT_NAME) requires use your location in order to identify locales for processing documents</string>
         </config-file>
         <config-file target="*-Info.plist" parent="Privacy - Location When In Use Usage Description">
-            <string>$(PRODUCT_NAME) location use</string>
+           <string>$(PRODUCT_NAME) requires use your location in order to identify locales for processing documents</string>
+        </config-file>
+        <config-file target="*-Info.plist" parent="Privacy - Location Always and When In Use Usage Description">
+            <string>$(PRODUCT_NAME) requires use your location in order to identify locales for processing documents</string>
         </config-file>
         <source-file src="src/ios/Socure.swift"/>
         <source-file src="src/ios/SocureViewController.swift"/>
