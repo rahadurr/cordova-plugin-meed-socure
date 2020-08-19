@@ -9,61 +9,6 @@
 import UIKit
 import SocureSdk
 
-@objc class SocureViewController: UIViewController {
-    
-    var socureScaneMode : SocureScaneMode
-    
-    var delegate : SocureScanResult?
-    
-    var licenseScanResult: Dictionary<String, Any> = [:]
-    var passportScanResult: Dictionary<String, Any> = [:]
-    var selfieScanResult: Dictionary<String, String> = [:]
-
-    init(socureScaneMode: SocureScaneMode) {
-        self.socureScaneMode = socureScaneMode
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) is not supported")
-    }
-
-    @objc override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        switch socureScaneMode {
-        case .License:
-            let docScanner = DocumentScanner()
-            docScanner.initiateLicenseScan(ImageCallback: self, BarcodeCallback: self)
-            break
-        case .Passport:
-            let docScanner = DocumentScanner()
-            docScanner.initiatePassportScan(ImageCallback: self, MRZCallback: self)
-            break
-        case .Selfie:
-            let selfieScanner = SelfieScanner()
-            selfieScanner.initiateSelfieScan(imageCallback: self)
-            break
-        }
-    }
-    
-    @objc override func viewWillDisappear(_ animated: Bool) {
-        switch socureScaneMode {
-        case .License:
-            self.delegate?.licanseScanResult(licenseScanResult: self.licenseScanResult)
-            break
-        case .Passport:
-            self.delegate?.passportScanResult(passportScanResult: self.passportScanResult)
-            break
-        case .Selfie:
-            self.delegate?.selfieScanResult(selfieScanResult: self.selfieScanResult)
-            break
-        }
-        super.viewWillDisappear(false)
-    }
-        
-}
-
 extension SocureViewController: ImageCallback, MRZCallback, BarcodeCallback {
     func handleMRZData(mrzData: MrzData?) {
         print("handleMRZData")
@@ -106,7 +51,7 @@ extension SocureViewController: ImageCallback, MRZCallback, BarcodeCallback {
     }
     
 
-    @objc func documentFrontCallBack(docScanResult: DocScanResult) {
+    func documentFrontCallBack(docScanResult: DocScanResult) {
         print("documentFrontCallBack")
         switch socureScaneMode {
         case .License:
@@ -120,34 +65,34 @@ extension SocureViewController: ImageCallback, MRZCallback, BarcodeCallback {
     }
     
     
-    @objc func documentBackCallBack(docScanResult: DocScanResult) {
+    func documentBackCallBack(docScanResult: DocScanResult) {
         print("documentBackCallBack")
         self.licenseScanResult["licenseBackImage"] = docScanResult.imageData?.base64EncodedString()
-        self.dismiss(animated: false, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     
-    @objc func selfieCallBack(selfieScanResult: SelfieScanResult) {
+    func selfieCallBack(selfieScanResult: SelfieScanResult) {
         print("selfieCallBack")
         self.selfieScanResult["selfieImage"] = selfieScanResult.imageData?.base64EncodedString()
-        self.dismiss(animated: false, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     
-    @objc func onScanCancelled() {
+    func onScanCancelled() {
        print("onScanCancelled")
        emptyScanResult()
-       self.dismiss(animated: false, completion: nil)
+       self.dismiss(animated: true, completion: nil)
     }
     
     func onError(errorType: SocureSDKErrorType, errorMessage: String) {
         print("onError: \(errorType) => \(errorMessage)")
         emptyScanResult()
-        self.dismiss(animated: false, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     
-    @objc func emptyScanResult() {
+    func emptyScanResult() {
         switch socureScaneMode {
         case .License:
             let barcodeData = [
@@ -193,3 +138,65 @@ extension SocureViewController: ImageCallback, MRZCallback, BarcodeCallback {
         }
     }
 }
+
+
+class SocureViewController: UIViewController {
+    
+    var socureScaneMode : SocureScaneMode
+    
+    var delegate : SocureScanResult?
+    
+    var licenseScanResult: Dictionary<String, Any> = [:]
+
+    var passportScanResult: Dictionary<String, Any> = [:]
+    
+    var selfieScanResult: Dictionary<String, String> = [:]
+    
+    let docScanner = DocumentScanner()
+    
+    let selfieScanner = SelfieScanner()
+    
+    
+
+    init(socureScaneMode: SocureScaneMode) {
+        self.socureScaneMode = socureScaneMode
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) is not supported")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        switch socureScaneMode {
+        case .License:
+            docScanner.initiateLicenseScan(ImageCallback: self, BarcodeCallback: self)
+            break
+        case .Passport:
+            docScanner.initiatePassportScan(ImageCallback: self, MRZCallback: self)
+            break
+        case .Selfie:
+            selfieScanner.initiateSelfieScan(imageCallback: self)
+            break
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        switch socureScaneMode {
+        case .License:
+            self.delegate?.licanseScanResult(licenseScanResult: self.licenseScanResult)
+            break
+        case .Passport:
+            self.delegate?.passportScanResult(passportScanResult: self.passportScanResult)
+            break
+        case .Selfie:
+            self.delegate?.selfieScanResult(selfieScanResult: self.selfieScanResult)
+            break
+        }
+        super.viewWillDisappear(animated)
+    }
+        
+}
+
