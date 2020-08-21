@@ -23,5 +23,9 @@
   "bugs": {
     "url": "https://github.com/rahadurr/cordova-plugin-meed-socure/issues"
   },
-  "homepage": "https://github.com/rahadurr/cordova-plugin-meed-socure#readme"
+  "homepage": "https://github.com/rahadurr/cordova-plugin-meed-socure#readme",
+  "dependencies": {
+    "plist": "^3.0.1",
+    "xml-js": "^1.6.11"
+  }
 }

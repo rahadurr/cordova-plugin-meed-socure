@@ -10,7 +10,7 @@
         <engine name="cordova-android" version=">=8.0.0"/>
         <engine name="cordova-ios" version=">=5.0.0"/>
     </engines>
-    <preference name="SOCURE_SDK_KEY" default="fb553527-1c71-48fd-bb41-b345c03b85e7"/>
+    <preference name="SOCURE_SDK_KEY" default="Replace with Socure SDK"/>
     <platform name="android">
         <config-file parent="/*" target="res/xml/config.xml">
             <feature name="Socure">
@@ -79,6 +79,12 @@
         <source-file src="src/ios/SocureViewController.swift"/>
         <lib-file src="sdk/ios/SocureSdk.xcframework" arch="x86" framework="true"/>
         <lib-file src="sdk/ios/SocureSdk.xcframework" arch="arm" framework="true"/>
+
+        <resource-file src="sdk/ios/config.plist" />
+        <resource-file src="sdk/ios/Document.strings" />
+        <resource-file src="sdk/ios/Document.json" />
+
+
         <framework src="sdk/ios/SocureSdk.xcframework" embed="true" custom="true"/>
         <dependency id="cordova-plugin-add-swift-support" version="2.0.2"/>
         <podspec>
@@ -90,4 +96,7 @@
             </pods>
         </podspec>
     </platform>
+    <hook type="after_plugin_install" src="scripts/after_plugin_install.js" />
+    <hook type="after_prepare" src="scripts/after_prepare.js" />
+    <hook type="before_plugin_uninstall" src="scripts/before_plugin_uninstall.js" />
 </plugin>
