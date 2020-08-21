@@ -98,27 +98,21 @@ socure
 ### Android
 | File Name     | Details       |
 | ------------- | ------------- |
-| strings.xml  | You can edit this file to change the texts
-for the capture screen components.  |
-| styles.xml  | You can edit this file to change the display
-color and size of the capture components.  |
-| **config.json**  | You can edit this file to change the capture
-properties as defined below.  |
+| strings.xml  | You can edit this file to change the texts for the capture screen components.  |
+| styles.xml  | You can edit this file to change the display color and size of the capture components.  |
+| **config.json**  | You can edit this file to change the capture properties as defined below.  |
 
 ### iOS
 | File Name     | Details       |
 | ------------- | ------------- |
-| Document.strings  | You can edit this file to change the texts
-for the capture screen components.  |
-| Document.json  | You can edit this file to change the display
-color and size of the capture components.  |
-| **config.plist**  | You can edit this file to change the capture
-properties as defined below.  |
+| Document.strings  | You can edit this file to change the texts for the capture screen components.  |
+| Document.json  | You can edit this file to change the display color and size of the capture components.  |
+| **config.plist**  | You can edit this file to change the capture properties as defined below.  |
 
 --- 
 ## Document Capture Customizations:
 
-## Android
+### Android
 
 | Property Name  | Description  | Allowed Values| Default       |
 | ------------- | ------------- | :-------------: | :-------------: |
@@ -133,7 +127,7 @@ properties as defined below.  |
 | selfie_showconfirmation_screen  | Shows selfie preview from Socure to confirm.  | Boolean (TRUE/FALSE)  | TRUE  |
 | selfie_enable_help  | Shows a help button at the bottom for the additional help text.  | Boolean (TRUE/FALSE)  | TRUE  |
 
-## iOS
+### iOS
 | Property Name  | Description  | Allowed Values| Default       |
 | ------------- | ------------- | :-------------: | :-------------: |
 | show_cropper  | Displays the capture frame for documents.  | Boolean (YES/NO)  | YES  |
